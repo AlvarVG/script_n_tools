@@ -7,6 +7,7 @@ This repository contains a collection of scripts and tools that I have used in p
 This repository includes scripts for various tasks such as data analysis, process automation, API integration, etc. All scripts are dockerized and prepared to run in an isolated and reproducible manner. As now, this are the tools:
 
 - [intensifier](./intensifier/README.md): gets an avatar image and modifies it to make it look more intense.
+- [wifi qr generator](./wifi_qr_generator/README.md): creates a qr to share your wifi password.
 
 ## Repository Structure
 
