@@ -1,0 +1,31 @@
+ifndef IMAGE_NAME
+$(error Please set up correctly the IMAGE_NAME property)
+else ifndef IMAGE_VERSION
+$(error Please set up correctly the IMAGE_VERSION property)
+else ifndef IMAGE_PATH
+$(error Please set up correctly the IMAGE_PATH property)
+else ifndef PLATFORMS
+$(error Please set up correctly the PLATFORMS property)
+endif
+
+QUAY_REGISTRY=quay.io
+BUILDER_NAME=temp_multi_arch_builder
+
+default: local
+
+local:
+	docker buildx build \
+		--platform $(PLATFORMS) \
+		-t $(IMAGE_NAME):$(IMAGE_VERSION) \
+		-f Dockerfile .
+
+build_push:
+	docker buildx build \
+		--output type=image,push=true \
+		--platform $(PLATFORMS) \
+		-t $(IMAGE_PATH)/$(IMAGE_NAME):$(IMAGE_VERSION) \
+		-t $(IMAGE_PATH)/$(IMAGE_NAME):latest \
+		-t $(QUAY_REGISTRY)/$(IMAGE_PATH)/$(IMAGE_NAME):$(IMAGE_VERSION) \
+		-t $(QUAY_REGISTRY)/$(IMAGE_PATH)/$(IMAGE_NAME):latest \
+		-f Dockerfile .
+
